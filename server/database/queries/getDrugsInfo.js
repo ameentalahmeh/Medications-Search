@@ -1,12 +1,12 @@
 const dbConnection = require("../dbConnection");
 
-const getDrugsInfo = (drugCode, diseaseCode, type) => dbConnection.query(
-  `SELECT * FROM drug
-   WHERE drugCode = ${drugCode} AND diseaseCode = ${drugCode} AND type = ${type}`,
+module.exports = (drugCode, diseaseCode, type, cb) => dbConnection.query(
+  'SELECT * FROM drug WHERE (drugCode, diseaseCode, type) = ($1,$2,$3) ',
+   [drugCode, diseaseCode, type],
    (err, drugs) => {
     if (err) {
-      res.status(501).json({ message: 'There is an Server Error' });
+      cb(err)
     }else {
-      res.json({ drugs });
+      cb(null,drugs);
     }
 });
