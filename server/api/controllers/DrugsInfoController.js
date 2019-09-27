@@ -8,7 +8,7 @@ const DrugsController = (req, res) => {
     if (err) {
       res.status(501).json({ message: 'There is an server Error' });
     }else {
-      if (!drugs || drugs.length === 0){
+      if (!drugs.rows || drugs.rows.length === 0){
         res.status(401).json({ message: 'No drugs exists' });
       } else {
         res.json(drugs.rows);
