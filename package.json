@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dbBuild" : "node ./server/database/dbBuild.js"
+    "dbBuild": "node ./server/database/dbBuild.js"
   },
   "repository": {
     "type": "git",
