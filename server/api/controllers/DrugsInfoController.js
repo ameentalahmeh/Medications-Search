@@ -1,20 +1,19 @@
 const getDrugsInfo = require('../../database/queries/getDrugsInfo');
-
+const {pageNotFound, serverError} = require('./ErrorControllers');
 
 const DrugsController = (req, res) => {
   const { drugCode, diseaseCode, type } = req.query;
-
   getDrugsInfo(drugCode, diseaseCode, type, (err, drugs) => {
     if (err) {
-      res.status(501).json({ message: 'There is an server Error' });
+        serverError(null, req, res);
     }else {
       if (!drugs.rows || drugs.rows.length === 0){
-        res.status(401).json({ message: 'No drugs exists' });
+        res.json({code: 1, success: true ,message: 'No drugs exists !!', drugs: []});
+
       } else {
-        res.json(drugs.rows);
+        res.json({code: 2, success: true, message: 'Success!', drugs:drugs.rows});
       }
     }
   });
 }
-
 module.exports = DrugsController;

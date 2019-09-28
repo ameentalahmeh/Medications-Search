@@ -1,0 +1,28 @@
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+thead {
+  font-family: 'Abel', sans-serif;
+  text-align: center;
+  width: 100%;
+  background-color: #D0D3D4;
+}
+
+tbody{
+  font-family: arial, sans-serif;
+  text-align: center;
+  width: 100%;
+  background-color: white;
+}
+
+td, th {
+  border: 0.5px solid black;
+  padding: 1vw;
+  font-size: 2vw;
+}
+tr:nth-child(even)
+{
+  background-color: #ddecef;
+}

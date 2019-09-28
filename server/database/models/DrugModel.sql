@@ -12,10 +12,12 @@ CREATE TABLE drug (
 
 INSERT INTO drug (decription,drugCode,diseaseCode,type) VALUES
 ('Acetaminophen','xaw123','aaa444',1),
-('Citalopram','xaw456','bbb555',2),
+('Citalopram','xaw123','aaa444',1),
+('Trofin','xaw123','aaa444',1),
+('Acamol','xaw123','aaa444',1),
+('Zenat','xaw123','aaa444',1),
 ('Lexapro','asp123','ccc666',1),
 ('Omeprazole','asp456','ddd777',2),
 ('Ativan','rfn123','eee888',1),
 ('Xanax','rfn456','fff999',2);
-
 COMMIT;
