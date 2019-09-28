@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dbBuild": "node ./server/database/dbBuild.js",
-    "client" : "cd client && npm run start",
+    "client": "cd client && npm run build && npm run start",
     "server": "nodemon ./server/server.js",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "start": "node ./server/server.js"
@@ -21,6 +21,8 @@
   },
   "homepage": "https://github.com/ameentalahmeh/SanadTask#readme",
   "dependencies": {
+    "@material-ui/core": "^4.4.0",
+    "@material-ui/icons": "^4.2.1",
     "body-parser": "^1.19.0",
     "compression": "^1.7.4",
     "env2": "^2.2.2",
