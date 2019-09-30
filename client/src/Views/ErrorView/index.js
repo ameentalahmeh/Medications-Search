@@ -1,15 +1,9 @@
-import React, { Component } from "react";
-import "./Error.css";
+import React from "react";
 
 
-class ErrorView extends Component {
-  state = {
-
-  };
-  render(){
+function ErrorView (props){
     return(
-      <p> Error </p>
+      <h1> {props.msgErr} </h1>
     )
   }
-}
 export default ErrorView;

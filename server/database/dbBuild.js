@@ -1,10 +1,10 @@
 const fs = require('fs');
 const dbConnection = require("./dbConnection");
 
-const drugModel = fs.readFileSync(__dirname + "/models/DrugModel.sql", "utf8");
+const medicationModel = fs.readFileSync(__dirname + "/models/MedicationModel.sql", "utf8");
 
 
-exports.runDbBuild = dbConnection.query(drugModel, (err)=>{
+exports.runDbBuild = dbConnection.query(medicationModel, (err)=>{
     if (err) {
       console.log(err);
       console.log('There is the DB build error');
