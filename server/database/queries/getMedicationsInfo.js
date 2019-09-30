@@ -27,8 +27,6 @@ module.exports = (drugCode, diseaseCode, type, cb) => {
     queryValues =  selected;
 
   }
-
-  console.log(queryValues);
   dbConnection.query(querySearch, selected, (err, medications) => {
       if (err) {
         cb(err)

@@ -65,19 +65,7 @@ class HomeView extends Component {
           this.state.isAction ?
             <div className ="MedicationsViewSection">
                 <h2> The retrieved drugs and medications are: </h2>
-                {
-                      <div id = 'resView'>
-                      {
-                      this.state.medications.length !== 0 ?
-                        <MedicationsView medications = {this.state.medications}/>
-                        :
-                        this.state.medications.length === 0 ?
-                        <Empty />
-                        :
-                        null
-                      }
-                     </div>
-                }
+                {<MedicationsView medications = {this.state.medications}/>}
             </div>
           :null
         }
@@ -85,5 +73,4 @@ class HomeView extends Component {
     )
     }
   }
-const Empty = () => <h1> No Medications </h1>;
 export default HomeView;
