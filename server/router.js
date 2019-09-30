@@ -1,13 +1,12 @@
 const express = require('express');
 
-const  DrugsController  = require('./api/controllers/DrugsInfoController.js');
+const  MedicationsController  = require('./api/controllers/MedicationsInfoController.js');
 const  ErrorControllers  = require('./api/controllers/ErrorControllers.js');
 
 const router = express.Router();
 
-router.get('/api/getDrugsInfo', DrugsController);
+router.get('/api/getMedicationsInfo', MedicationsController);
 
-router.use(ErrorControllers.pageNotFound);
 router.use(ErrorControllers.serverError);
 
 module.exports = router;

@@ -1,13 +1,12 @@
 import React from "react";
 import Table from '../../components/Table';
-import "./Drug.css";
 
 
-function Drug (props){
+function Medications (props){
       return(
         <div>
-          <Table drugs = {props.drugs}/>
+          <Table medications = {props.medications}/>
         </div>
       )
     }
-export default Drug;
+export default Medications;
