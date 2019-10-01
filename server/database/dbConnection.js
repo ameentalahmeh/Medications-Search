@@ -1,14 +1,14 @@
 const {Pool} = require('pg');
 require("env2")("config.env")
 
-const {DB_URL} = process.env;
+const {DATABASE_URL} = process.env;
 
-if (!DB_URL) {
+if (!DATABASE_URL) {
 throw Error ("No database URL");
 }
 
 const option = {
-  connectionString: DB_URL
+  connectionString: DATABASE_URL
 };
 
 module.exports = new Pool(option);
