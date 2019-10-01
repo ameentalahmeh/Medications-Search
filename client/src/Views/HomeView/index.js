@@ -31,7 +31,8 @@ class HomeView extends Component {
     fetch('/api/getMedicationsInfo' + query)
     .then(res => res.json())
     .then(result => {
-     console.log(result);
+      
+      console.log(result);
 
     // handling response for successed request.
         if(result.code === 1){
@@ -42,9 +43,6 @@ class HomeView extends Component {
         this.setState({ fetchIsDone: true, hasMedications: false })
       }
     })
-
-    // Clear the old medications to placing the new.
-    this.setState({ medications: []})
 }
 
   render(){
