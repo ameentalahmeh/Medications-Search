@@ -5,7 +5,6 @@ const router = require('./router');
 const app = express();
 
 app.use(express.static(path.join(__dirname, '..', 'client', 'build')));
-console.log(path.join(__dirname, '..', 'client', 'public'));
 app.use(router);
 
 app.get('*', (req, res) => {
