@@ -12,6 +12,7 @@ class HomeView extends Component {
         errCode : 0,
         isAction: false,
         inputsArr: [],
+        medications: []
       };
   }
   readInputs  = () => {
@@ -40,6 +41,7 @@ class HomeView extends Component {
     fetch('/api/getMedicationsInfo' + query)
     .then(res => res.json())
     .then(result => {
+     console.log(result);
     if(result.success === true){
     // handling response for successed request.
         if(result.code === 1){

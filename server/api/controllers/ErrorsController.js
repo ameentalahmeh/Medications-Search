@@ -1,4 +1,3 @@
-
 // -- Error 404 -------------------------
 const errorNotFound = (request, response) => {
     response.writeHead(404, {'Content-Type' : 'text/html'});
@@ -11,4 +10,4 @@ const serverError = (request, response) => {
     response.end('<h1> Server has Moseba : Error 505 </h1>');
 };
 
-module.exports = {errorNotFound ,serverError}
+module.exports = {errorNotFound, serverError}
