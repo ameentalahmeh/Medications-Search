@@ -59,12 +59,12 @@ class HomeView extends Component {
   render(){
     return(
       <div className = 'Home'>
-        <h1> Drugs & Medications Search </h1>
+        <h1 className="Title"> Drugs & Medications Search </h1>
         <SearchBar onAction = {this.handlingGetAction} />
         {
           this.state.isAction ?
             <div className ="MedicationsViewSection">
-                <h2> The retrieved drugs and medications are: </h2>
+                <h2 className = "ShowResultsTitle"> The retrieved drugs and medications are: </h2>
                 {<MedicationsView medications = {this.state.medications}/>}
             </div>
           :null

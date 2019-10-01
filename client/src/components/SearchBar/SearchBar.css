@@ -27,7 +27,7 @@ input[type=text] {
   font-size: 1vw;
 }
 input[type=text]:focus {
-  transform: scale(1.2,1);
+   box-shadow: 0 0 10px #9ecaed;
 }
 ::placeholder {
   color: #CACFD2;
@@ -39,38 +39,63 @@ select{
   border-radius: 1vw;
   margin: 2vh 0;
   padding: 2vh 0.6vw;
-  font-size: 1vw;
-  color: #4CAF50;
-  font-weight: 700;
   background-color: white;
-  cursor: pointer;
-}
-select.option{
+  color: #000;
+  font-size: 1vw;
   font-weight: bold;
-
+  font-family: none;
+  cursor: pointer;
 }
 
 input[type=submit] {
   display: flex;
   align-self:center;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 1vh;
+  justify-content: center;
+  background-color: gainsboro;
+  color: #000;
+  border: 1px solid #ccc;
+  border-radius: 1vw;
   padding: 1.2vh 3.3vw;
   margin: 2vh 0;
-  font-size: 1vw;
+  font-size: 1.2vw;
   font-weight: bold;
+  font-family: none;
   cursor: pointer;
 }
 input[type=submit]:hover {
-  background-color: #45a049;
+  background-color: #a0bed0;
   transform: scale(1.2,1);
 }
 
-input[type=submit]:disabled{
-  cursor: not-allowed;
-  background-color: #4CAF50;
-  transform: scale(1,1);
-  opacity: 0.5;
+
+@media only screen and (max-width: 1200px) {
+  .formContainer{
+    width: -webkit-fill-available;
+    padding-top: 1.5vh;
+  }
+  .InputParams{
+    align-items: center;
+    flex-direction: column;
+}
+input[type=text]{
+    width: 80%;
+    padding: 1vh 2vw;
+    margin: 1.2vh 0;
+    font-size: initial;
+    font-weight: normal;
+}
+input[type=submit]{
+    font-size: 5vw;
+    font-weight: bold;
+    width: 80%;
+}
+select{
+    width: 35%;
+    margin: 0;
+    padding: 0.2vh 0.2vw;
+    font-weight: 600;
+    font-size: 3vw;
+  }
+
+
 }

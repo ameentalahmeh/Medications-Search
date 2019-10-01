@@ -1,5 +1,5 @@
 const getMedicationsInfo = require('../../database/queries/getMedicationsInfo');
-const serverError = require('./ErrorControllers');
+const {serverError} = require('./ErrorControllers');
 
 const MedicationsController = (req, res) => {
   const { drugCode, diseaseCode, type } = req.query;

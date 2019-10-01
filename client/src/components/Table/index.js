@@ -18,7 +18,11 @@ function Table(props) {
         {
           MedicationsKeys.map((mkey, index) => {
             return(
-              <th key = {index} > { mkey }</th>
+              <th key = {index} >
+              {
+                mkey[0].toUpperCase() + mkey.substring(1,mkey.length)
+              }
+              </th>
             )
           })
         }
