@@ -1,6 +1,6 @@
 const dbConnection = require("../dbConnection");
 
-module.exports = (diseaseCode, type, cb) => {
+module.exports = (drugCode, diseaseCode, type, cb) => {
 
   const inputs = [drugCode, diseaseCode, type];
 
