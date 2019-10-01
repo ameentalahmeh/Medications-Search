@@ -8,6 +8,7 @@ class App extends Component {
   return (
     <Router>
         <Route path="/" component={HomeView} />
+        <Route path="/api/getMedicationsInfo" component={HomeView} />
     </Router>
   );
 }
