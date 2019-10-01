@@ -1,12 +1,12 @@
 const getMedicationsInfo = require('../../database/queries/getMedicationsInfo');
-const ErrorsControllers = require('./ErrorsControllers.js');
+const  ErrorsController  = require('./ErrorsController.js');
 
 
 const MedicationsController = (req, res) => {
   const { drugCode, diseaseCode, type } = req.query;
   getMedicationsInfo(drugCode, diseaseCode, type, (err, medications) => {
     if (err) {
-        ErrorsControllers.serverError(req,res);
+        ErrorsController.serverError(req,res);
     }else {
       if (medications.rows && medications.rows.length !== 0){
         res.json({code: 1, success: true, message: 'Success!', medications:medications.rows});
