@@ -17,6 +17,9 @@ class HomeView extends Component {
   }
   handlingGetAction = () => {
 
+    // Handle Click button
+    this.setState({isAction:true});
+
     // read Inputs before fetching.
     const inputsArr = this.readInputs();
 
@@ -31,7 +34,7 @@ class HomeView extends Component {
     fetch('/api/getMedicationsInfo' + query)
     .then(res => res.json())
     .then(result => {
-      
+
       console.log(result);
 
     // handling response for successed request.
@@ -51,7 +54,10 @@ class HomeView extends Component {
         <h1 className="Title"> Drugs & Medications Search </h1>
         <SearchBar onAction = {this.handlingGetAction} />
         {
-          this.state.fetchIsDone ?
+        this.state.isAction ?
+          !this.state.fetchIsDone ?
+            <h1> Loading ... </h1>
+            :
              <div className ="MedicationsViewSection">
                 <h2 className = "ShowResultsTitle"> The retrieved drugs and medications are: </h2>
                 {
@@ -61,8 +67,8 @@ class HomeView extends Component {
                   <Empty />
                 }
             </div>
-            :
-            null
+          :
+          null
         }
       </div>
     )
