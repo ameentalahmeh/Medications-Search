@@ -18,7 +18,7 @@ class HomeView extends Component {
   handlingGetAction = () => {
 
     // Handle Click button
-    this.setState({isAction:true});
+    this.setState({isAction:true, fetchIsDone: false, hasMedications: false });
 
     // read Inputs before fetching.
     const inputsArr = this.readInputs();
