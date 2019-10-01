@@ -8,6 +8,7 @@ const router = express.Router();
 
 
 router.get('/api/getMedicationsInfo', MedicationsController);
+
 router.use(ErrorsController.serverError);
 router.use(ErrorsController.errorNotFound);
 
