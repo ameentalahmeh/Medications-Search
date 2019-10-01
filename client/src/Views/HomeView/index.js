@@ -8,11 +8,7 @@ class HomeView extends Component {
   constructor(){
     super();
     this.state = {
-        msgErr : '',
         errCode : 0,
-        isAction: false,
-        inputsArr: [],
-        medications: []
       };
   }
   readInputs  = () => {
@@ -23,9 +19,6 @@ class HomeView extends Component {
     return inputsArr;
   }
   handlingGetAction = () => {
-
-    // handling the button action.
-    this.setState({ isAction: true})
 
     // read Inputs before fetching.
     const inputsArr = this.readInputs();
@@ -42,17 +35,15 @@ class HomeView extends Component {
     .then(res => res.json())
     .then(result => {
      console.log(result);
-    if(result.success === true){
+
     // handling response for successed request.
         if(result.code === 1){
-        this.setState({ medications: result.medications })
-      } else {
-        this.setState({ medications: [] })
+        // There are medications.
+        this.setState({ fetchIsDone: true, hasMedications: true, medications: result.medications })
+      } else if(result.code === 2){
+        // No Medications.
+        this.setState({ fetchIsDone: true, hasMedications: false })
       }
-    }else if(result.success === false) {
-    // handling response for failed request.
-    this.setState({ errCode:1, msgErr: result.message})
-  }
     })
 
     // Clear the old medications to placing the new.
@@ -65,20 +56,22 @@ class HomeView extends Component {
         <h1 className="Title"> Drugs & Medications Search </h1>
         <SearchBar onAction = {this.handlingGetAction} />
         {
-          this.state.isAction ?
+          this.state.fetchIsDone ?
              <div className ="MedicationsViewSection">
                 <h2 className = "ShowResultsTitle"> The retrieved drugs and medications are: </h2>
                 {
-                  this.state.medications.length !==0 ?
+                  this.state.hasMedications ?
                   <MedicationsView medications = {this.state.medications}/>
-                  :
-                  <MedicationsView medications = {[]}/>
+                :
+                  <Empty />
                 }
             </div>
-        :null
+            :
+            null
         }
       </div>
     )
   }
 }
+const Empty = () => <h1> No Medications </h1>;
 export default HomeView;
