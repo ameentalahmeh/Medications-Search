@@ -1,15 +1,12 @@
 import React, { Component } from "react";
 import SearchBar from '../../components/SearchBar';
 import MedicationsView from '../MedicationsView';
-// import ErrorView from '../ErrorView';
 import "./Home.css";
 
 class HomeView extends Component {
   constructor(){
     super();
-    this.state = {
-        errCode : 0,
-      };
+    this.state = {};
   }
   readInputs  = () => {
     var drugCode = document.getElementById("drugCode");
