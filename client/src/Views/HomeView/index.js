@@ -42,7 +42,7 @@ class HomeView extends Component {
     fetch('/api/getMedicationsInfo' + query)
     .then(res => res.json())
     .then(result => {
-
+      
       // handling response for failed request.
       if(result.success === false ){
             this.setState({ errCode:1, msgErr: result.message})
