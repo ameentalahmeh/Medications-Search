@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import HomeView from "./Views/HomeView";
-// import ErrorView from "./Views/ErrorView";
 import './App.css';
 
 class App extends Component {
