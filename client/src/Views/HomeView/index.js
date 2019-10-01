@@ -12,7 +12,6 @@ class HomeView extends Component {
         errCode : 0,
         isAction: false,
         inputsArr: [],
-        medications : [],
       };
   }
   readInputs  = () => {
@@ -20,7 +19,6 @@ class HomeView extends Component {
     var diseaseCode = document.getElementById("diseaseCode");
     var type = document.getElementById("type");
     var inputsArr = [drugCode, diseaseCode, type];
-
     return inputsArr;
   }
   handlingGetAction = () => {
@@ -42,18 +40,21 @@ class HomeView extends Component {
     fetch('/api/getMedicationsInfo' + query)
     .then(res => res.json())
     .then(result => {
-      
-      // handling response for failed request.
-      if(result.success === false ){
-            this.setState({ errCode:1, msgErr: result.message})
-        }
-      // handling response for successed request.
-      else if(result.success === true){
-        if (result.code === 2) {
-        this.setState({ medications: result.medications})
+    if(result.success === true){
+    // handling response for successed request.
+        if(result.code === 1){
+        this.setState({ medications: result.medications })
+      } else {
+        this.setState({ medications: [] })
       }
-      }
+    }else if(result.success === false) {
+    // handling response for failed request.
+    this.setState({ errCode:1, msgErr: result.message})
+  }
     })
+
+    // Clear the old medications to placing the new.
+    this.setState({ medications: []})
 }
 
   render(){
@@ -63,14 +64,19 @@ class HomeView extends Component {
         <SearchBar onAction = {this.handlingGetAction} />
         {
           this.state.isAction ?
-            <div className ="MedicationsViewSection">
+             <div className ="MedicationsViewSection">
                 <h2 className = "ShowResultsTitle"> The retrieved drugs and medications are: </h2>
-                {<MedicationsView medications = {this.state.medications}/>}
+                {
+                  this.state.medications.length !==0 ?
+                  <MedicationsView medications = {this.state.medications}/>
+                  :
+                  <MedicationsView medications = {[]}/>
+                }
             </div>
-          :null
+        :null
         }
       </div>
     )
-    }
   }
+}
 export default HomeView;

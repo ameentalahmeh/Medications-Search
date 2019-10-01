@@ -3,6 +3,7 @@ import "./Table.css";
 
 const Empty = () => <h1> No Medications </h1>;
 function Table(props) {
+  console.log('medications length',props.medications.length);
   if(props.medications.length === 0)
   {
     return(<Empty />)

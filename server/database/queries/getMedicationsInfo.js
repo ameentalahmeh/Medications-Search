@@ -3,6 +3,7 @@ const dbConnection = require("../dbConnection");
 module.exports = (drugCode, diseaseCode, type, cb) => {
 
   const inputs = [drugCode, diseaseCode, type];
+
   const inputsAsString = ['drugCode','diseaseCode','type'];
   const selected  = inputs.filter((i,index) => i !== inputsAsString[index])
 
