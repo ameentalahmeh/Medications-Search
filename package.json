@@ -1,0 +1,38 @@
+{
+  "name": "sanadtask",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dbBuild": "node ./server/database/dbBuild.js",
+    "client": "cd client && npm run build && npm run start",
+    "server": "nodemon ./server/server.js",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "start": "node ./server/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ameentalahmeh/SanadTask.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ameentalahmeh/SanadTask/issues"
+  },
+  "homepage": "https://github.com/ameentalahmeh/SanadTask#readme",
+  "dependencies": {
+    "@material-ui/core": "^4.4.0",
+    "@material-ui/icons": "^4.2.1",
+    "body-parser": "^1.19.0",
+    "compression": "^1.7.4",
+    "env2": "^2.2.2",
+    "express": "^4.17.1",
+    "fs": "0.0.1-security",
+    "pg": "^7.12.1",
+    "pg-hstore": "^2.3.3"
+  },
+  "devDependencies": {
+    "concurrently": "^4.1.2",
+    "nodemon": "^1.19.2"
+  }
+}
