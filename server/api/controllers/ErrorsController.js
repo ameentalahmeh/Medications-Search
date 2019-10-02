@@ -4,7 +4,7 @@ const errorNotFound = (request, response) => {
     response.end('<h1> Page Not Found </h1>');
 };
 
-// -- Error 505 -------------------------
+// -- Error 500 -------------------------
 const serverError = (request, response) => {
     response.writeHead(500, {'Content-Type' : 'text/html'});
     response.end('<h1> There is an server Error </h1>');
