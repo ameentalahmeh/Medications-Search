@@ -1,11 +1,11 @@
 // -- Error 404 -------------------------
 const errorNotFound = (req, res) => {
-    res.json({message:'Sorry, we cannot find that!'});
+    res.status(404).send('<h1> Sorry, we cannot find that! </h1>')
 };
 
 // -- Error 505 -------------------------
 const serverError = (req, res) => {
-    res.json({message:'There is an server Error!'});
+    res.status(500).send('<h1> Server Error! </h1>')
 };
 
 module.exports = {errorNotFound, serverError}
