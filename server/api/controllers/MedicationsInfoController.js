@@ -17,6 +17,7 @@ const MedicationsController = (req, res) => {
   }
     getMedicationsInfo(drugCode, diseaseCode, type, (err, medications) => {
       if (err) {
+        console.log(err);
         ErrorsController.serverError(req,res);
       }else {
         if (medications.rows && medications.rows.length !== 0){
