@@ -5,9 +5,13 @@ const ErrorsController  = require('./ErrorsController.js');
 
 const MedicationsController = (req, res) => {
   const { drugCode, diseaseCode, type } = req.query;
-  const legalURLKeys = [ 'drugCode', 'diseaseCode', 'type' ]
+  const legalURLKeys = [ 'drugCode', 'diseaseCode', 'type' ];
 
-  if (type > 2 || type < 1 || Object.keys(req.query) !== legalURLKeys) {
+  const LegalURLflag = Object.keys(req.query).map((i,index) => {
+        return i === legalURLKeys[index]
+  });
+
+  if (type > 2 || type < 1 || LegalURLflag.includes(false) || Object.keys(req.query).length !== 3) {
       console.log('Server Error');
       ErrorsController.serverError(req,res);
   }
