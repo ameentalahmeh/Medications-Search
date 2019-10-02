@@ -1,12 +1,12 @@
 // -- Error 404 -------------------------
-const errorNotFound = (request, response) => {
+const errorNotFound = (req, res) => {
     response.writeHead(404, {'Content-Type' : 'text/html'});
     response.end('<h1> Page Not Found </h1>');
 };
 
-// -- Error 500 -------------------------
-const serverError = (request, response) => {
-    response.writeHead(500, {'Content-Type' : 'text/html'});
+// -- Error 505 -------------------------
+const serverError = (req, res) => {
+    response.writeHead(505, {'Content-Type' : 'text/html'});
     response.end('<h1> There is an server Error </h1>');
 };
 

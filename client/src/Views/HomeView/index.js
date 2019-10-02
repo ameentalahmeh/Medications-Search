@@ -6,7 +6,8 @@ import "./Home.css";
 class HomeView extends Component {
   constructor(){
     super();
-    this.state = {};
+    this.state = {
+    };
   }
   readInputs  = () => {
     var drugCode = document.getElementById("drugCode");
@@ -37,14 +38,14 @@ class HomeView extends Component {
 
       console.log(result);
 
-    // handling response for successed request.
+        // handling response for successed request.
         if(result.code === 1){
-        // There are medications.
-        this.setState({ fetchIsDone: true, hasMedications: true, medications: result.medications })
-      } else if(result.code === 2){
-        // No Medications.
-        this.setState({ fetchIsDone: true, hasMedications: false })
-      }
+          // There are medications.
+          this.setState({ fetchIsDone: true, hasMedications: true, medications: result.medications })
+        } else if(result.code === 2){
+          // No Medications.
+          this.setState({ fetchIsDone: true, hasMedications: false })
+        }
     })
 }
 
