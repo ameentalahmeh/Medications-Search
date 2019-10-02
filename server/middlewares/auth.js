@@ -10,9 +10,10 @@ const auth = (req,res,next) =>{
       ErrorsController.serverError(req,res);
   }
   if (req.url !== legalURL || req.url !== '/') {
+      console.log(legalURL);
       ErrorsController.errorNotFound(req,res);
   }
-  
+
   next(req,res);
 }
 
