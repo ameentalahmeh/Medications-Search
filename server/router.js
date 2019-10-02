@@ -2,7 +2,6 @@ const express = require('express');
 
 const  MedicationsController  = require('./api/controllers/MedicationsInfoController.js');
 const  ErrorsController  = require('./api/controllers/ErrorsController.js');
-// const  auth = require('./middlewares/auth.js');
 
 const router = express.Router();
 
