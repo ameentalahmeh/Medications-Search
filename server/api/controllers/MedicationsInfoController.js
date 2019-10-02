@@ -1,16 +1,15 @@
 const getMedicationsInfo = require('../../database/queries/getMedicationsInfo');
 const ErrorsController  = require('./ErrorsController.js');
 
-const auth = (req,res) =>{
-  const { drugCode, diseaseCode, type } = req.query;
-  if (type > 2 || type < 1) {
-      ErrorsController.serverError(req,res);
-  }
-}
 
 const MedicationsController = (req, res) => {
   const { drugCode, diseaseCode, type } = req.query;
-    auth(req,res);
+  const legalURLKeys = [ 'drugCode', 'diseaseCode', 'type' ];
+  const LegalURLflag = Object.keys(req.query).map((i,index) => i === legalURLKeys[index]);
+
+  if (type > 2 || type < 1 || Object.keys(req.query).length !== legalURLKeys.length || LegalURLflag.includes(false) ){
+    ErrorsController.serverError(req,res);
+  }else {
     getMedicationsInfo(drugCode, diseaseCode, type, (err, medications) => {
       if (err) {
         ErrorsController.serverError(req,res);
@@ -22,5 +21,6 @@ const MedicationsController = (req, res) => {
         }
       }
     });
+  }
 }
 module.exports = MedicationsController;
