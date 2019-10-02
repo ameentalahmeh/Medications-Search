@@ -2,13 +2,13 @@ const express = require('express');
 
 const  MedicationsController  = require('./api/controllers/MedicationsInfoController.js');
 const  ErrorsController  = require('./api/controllers/ErrorsController.js');
-const  auth = require('./middlewares/auth.js');
+// const  auth = require('./middlewares/auth.js');
 
 const router = express.Router();
 
 
 
-router.get('/api/getMedicationsInfo',auth,MedicationsController);
+router.get('/api/getMedicationsInfo',MedicationsController);
 
 router.use(ErrorsController.errorNotFound);
 router.use(ErrorsController.serverError);
