@@ -74,5 +74,5 @@ class HomeView extends Component {
     )
   }
 }
-const Empty = () => <h1> No Medications </h1>;
+const Empty = () => <center><h1> No Medications </h1></center>
 export default HomeView;
