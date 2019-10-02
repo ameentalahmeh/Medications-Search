@@ -5,7 +5,10 @@ const ErrorsController  = require('./ErrorsController.js');
 
 const MedicationsController = (req, res) => {
   const { drugCode, diseaseCode, type } = req.query;
-  if (type > 2 || type < 1) {
+  const legalURLKeys = [ 'drugCode', 'diseaseCode', 'type' ]
+
+  if (type > 2 || type < 1 || Object.keys(req.query) !== legalURLKeys) {
+      console.log('Server Error');
       ErrorsController.serverError(req,res);
   }
     getMedicationsInfo(drugCode, diseaseCode, type, (err, medications) => {
