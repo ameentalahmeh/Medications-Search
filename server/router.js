@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.post('/api/getMedicationsInfo', MedicationsController);
 
-router.use(ErrorsController.errorNotFound);
 router.use(ErrorsController.serverError);
+router.use(ErrorsController.errorNotFound);
 
 module.exports = router;
