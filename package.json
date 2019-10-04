@@ -1,5 +1,5 @@
 {
-  "name": "sanadtask",
+  "name": "Medications-Search",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -12,14 +12,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ameentalahmeh/SanadTask.git"
+    "url": "git+https://github.com/ameentalahmeh/Medications-Search.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ameentalahmeh/SanadTask/issues"
+    "url": "https://github.com/ameentalahmeh/Medications-Search/issues"
   },
-  "homepage": "https://github.com/ameentalahmeh/SanadTask#readme",
+  "homepage": "https://github.com/ameentalahmeh/Medications-Search#readme",
   "dependencies": {
     "@material-ui/core": "^4.4.0",
     "@material-ui/icons": "^4.2.1",
@@ -29,7 +29,9 @@
     "express": "^4.17.1",
     "fs": "0.0.1-security",
     "pg": "^7.12.1",
-    "pg-hstore": "^2.3.3"
+    "pg-hstore": "^2.3.3",
+    "x2js": "^3.3.1",
+    "xml": "^1.0.1"
   },
   "devDependencies": {
     "concurrently": "^4.1.2",
