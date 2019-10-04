@@ -4,12 +4,6 @@ var xml = require('xml');
 var X2JS = require('x2js');
 var x2js = new X2JS();
 
-const auth = (req,res) =>{
-  const { drugCode, diseaseCode, type } = req.query;
-  if (type > 2 || type < 1) {
-      ErrorsController.serverError(req,res);
-  }
-}
 
 const MedicationsController = (req, res) => {
 

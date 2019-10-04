@@ -12,7 +12,8 @@ var x2js = new X2JS();
 class HomeView extends Component {
   constructor(){
     super();
-    this.state = {};
+    this.state = {
+    };
   }
   readInputs  = () => {
     var drugCode = document.getElementById("drugCode");
