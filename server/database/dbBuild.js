@@ -6,6 +6,7 @@ const medicationModel = fs.readFileSync(__dirname + "/models/MedicationModel.sql
 
 exports.runDbBuild = dbConnection.query(medicationModel, (err)=>{
     if (err) {
+      console.log(err);
       console.log('There is the DB build error');
     }else {
       console.log('Success!!');
