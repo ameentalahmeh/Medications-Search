@@ -3,6 +3,12 @@ import SearchBar from '../../components/SearchBar';
 import MedicationsView from '../MedicationsView';
 import "./Home.css";
 
+var xml = require('xml');
+var X2JS = require('x2js');
+var x2js = new X2JS();
+
+
+
 class HomeView extends Component {
   constructor(){
     super();
@@ -15,6 +21,7 @@ class HomeView extends Component {
     var inputsArr = [drugCode, diseaseCode, type];
     return inputsArr;
   }
+
   handlingGetAction = () => {
 
     // Handle Click button
@@ -23,29 +30,52 @@ class HomeView extends Component {
     // read Inputs before fetching.
     const inputsArr = this.readInputs();
 
-    // Prepare the search query
-    var query = '?';
-    inputsArr.forEach( function(i) {
-      query = query + (i.name + "=" + (i.value ? i.value : i.name) + "&");
+    // Convert Form Inputs / XML format
+    var xmlInputs = [];
+    inputsArr.forEach(function(i) {
+        if (!i.value) {
+          xmlInputs.push({ [i.name] : i.name })
+        }else {
+          xmlInputs.push({ [i.name] : i.value })
+        }
     })
-    query = query.slice(0, -1);
 
-    // Do fetch.
-    fetch('/api/getMedicationsInfo' + query)
-    .then(res => res.json())
-    .then(result => {
 
-      console.log(result);
+   // Create XMLHttpRequest
+   var http = new XMLHttpRequest();
+   var url = "/api/getMedicationsInfo";
+   // Open the XHR request.
+   http.open("POST", url, false);
 
-    // handling response for successed request.
-        if(result.code === 1){
-        // There are medications.
-        this.setState({ fetchIsDone: true, hasMedications: true, medications: result.medications })
-      } else if(result.code === 2){
-        // No Medications.
-        this.setState({ fetchIsDone: true, hasMedications: false })
-      }
-    })
+   // Prepare the search query
+   const QuerySearchXML = xml({inputs: xmlInputs}, { declaration: true });
+
+   // XHR Response Handling
+   try{
+       http.setRequestHeader('Content-Type', 'text/xml'); // Set headers
+       http.send(QuerySearchXML); // Send the XML Request.
+
+     // XHR Response Handling
+       if(http.readyState === 4 && http.status === 200) {
+         var code = http.responseXML.getElementsByTagName("code");
+         var  {results} = x2js.xml2js(http.response);
+         if (parseInt(code[0].childNodes[0].nodeValue) === 1) {
+           this.setState({
+                  fetchIsDone: true,
+                  hasMedications: true,
+                  medications: results.medications.med
+                })
+         }else if (parseInt(code[0].childNodes[0].nodeValue) === 2){
+           this.setState({
+                  fetchIsDone: true,
+                  hasMedications: false
+                })
+        }
+     }
+   }
+   catch{
+     alert("Request failed");
+   }
 }
 
   render(){
@@ -54,24 +84,24 @@ class HomeView extends Component {
         <h1 className="Title"> Drugs & Medications Search </h1>
         <SearchBar onAction = {this.handlingGetAction} />
         {
-        this.state.isAction ?
-          !this.state.fetchIsDone ?
-            <h1> Loading ... </h1>
-            :
-             <div className ="MedicationsViewSection">
-                <h2 className = "ShowResultsTitle"> The retrieved drugs and medications are: </h2>
-                {
-                  this.state.hasMedications ?
-                  <MedicationsView medications = {this.state.medications}/>
-                :
-                  <Empty />
-                }
-            </div>
-          :
-          null
-        }
+       this.state.isAction ?
+         !this.state.fetchIsDone ?
+           <h1> Loading ... </h1>
+           :
+            <div className ="MedicationsViewSection">
+               <h2 className = "ShowResultsTitle"> The retrieved drugs and medications are: </h2>
+               {
+                 this.state.hasMedications ?
+                 <MedicationsView medications = {this.state.medications}/>
+               :
+                 <Empty />
+               }
+           </div>
+         :
+         null
+       }
       </div>
-    )
+  )
   }
 }
 const Empty = () => <center><h1> No Medications </h1></center>

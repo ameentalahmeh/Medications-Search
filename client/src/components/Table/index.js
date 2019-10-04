@@ -26,11 +26,11 @@ function Table(props) {
       <tbody>
       {
         props.medications.map((medication,index) => {
-          const {id, decription, drugcode, diseasecode, type}  = medication;
+          const {id, description, drugcode, diseasecode, type}  = medication;
           return(
             <tr key = {index}>
             <td>{id}</td>
-            <td>{decription}</td>
+            <td>{description}</td>
             <td>{drugcode}</td>
             <td>{diseasecode}</td>
             <td>{type}</td>
