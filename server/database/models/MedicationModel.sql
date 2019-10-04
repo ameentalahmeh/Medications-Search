@@ -10,26 +10,12 @@ CREATE TABLE drug (
   type            INTEGER    NOT NULL  CHECK (type = 1 OR type = 2)
 );
 
-INSERT INTO drug (description,drugCode,diseaseCode,type) VALUES
-('Acetaminophen','xaw123','aaa444',1),
-('Citalopram','xaw123','aaa444',2),
-('Trofin','xaw123','aaa444',2),
-('Acamol','xaw123','aaa444',1),
-('Zenat','xaw123','aaa444',1),
-('Lexapro','asp123','ccc666',2),
-('Omeprazole','asp456','ddd777',2),
-('Ativan','rfn123','eee888',1),
-('Xanax','rfn456','fff999',2),
-('Lexapro','asp123','ccc666',2),
-('Omeprazole','asp456','ddd777',2),
-('Ativan','rfn123','eee888',1),
-('Xanax','rfn456','fff999',2),
-('Lexapro','asp123','ccc666',2),
-('Omeprazole','asp456','ddd777',2),
-('Ativan','rfn123','eee888',1),
-('Xanax','rfn456','fff999',2),
-('Lexapro','asp123','ccc666',2),
-('Omeprazole','asp456','ddd777',2),
-('Ativan','rfn123','eee888',1),
-('Xanax','rfn456','fff999',2);
+INSERT INTO drug (description,drugCode,diseaseCode,type)
+select
+    left(MD5(i::TEXT), 10),
+    CAST((RANDOM() * (899) + 100) as INT),
+    CAST((RANDOM() * (899) + 100) as INT),
+    floor(random() * 2 + 1)::int
+from generate_series(1, 100000) s(i);
+
 COMMIT;

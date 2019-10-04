@@ -17,7 +17,7 @@ const MedicationsController = (req, res) => {
      const legalURLKeys = [ 'drugCode', 'diseaseCode', 'type' ];
      const LegalURLflag = Object.keys(InputsAsObject).map((i,index) => i === legalURLKeys[index]);
      const {drugCode, diseaseCode, type} = InputsAsObject;
-
+      console.log(type > 2)
      if (type > 2 || type < 1 || Object.keys(InputsAsObject).length !== legalURLKeys.length || LegalURLflag.includes(false) ){
        ErrorsController.serverError(req,res);
      }
