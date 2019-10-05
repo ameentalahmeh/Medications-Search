@@ -16,7 +16,8 @@ const MedicationsController = (req, res) => {
      const InputsAsObject = x2js.xml2js(body).inputs;
      const legalURLKeys = [ 'drugCode', 'diseaseCode', 'type' ];
      const LegalURLflag = Object.keys(InputsAsObject).map((i,index) => i === legalURLKeys[index]);
-     const {drugCode, diseaseCode, type} = InputsAsObject;
+     var  {drugCode, diseaseCode, type} = InputsAsObject;
+     type =  type == 'type'? type : parseInt(type);
 
      if (type > 2 || type < 1 || Object.keys(InputsAsObject).length !== legalURLKeys.length || LegalURLflag.includes(false) ){
          ErrorsController.serverError(req,res);

@@ -8,7 +8,6 @@ var X2JS = require('x2js');
 var x2js = new X2JS();
 
 
-
 class HomeView extends Component {
   constructor(){
     super();
@@ -23,6 +22,18 @@ class HomeView extends Component {
     return inputsArr;
   }
 
+  covertToXML = (Inputs) => {
+    var xmlInputs = [];
+    Inputs.forEach(function(i) {
+        if (!i.value) {
+          xmlInputs.push({ [i.name] : i.name })
+        }else {
+          xmlInputs.push({ [i.name] : i.value })
+        }
+    })
+    return xmlInputs;
+  }
+
   handlingGetAction = () => {
 
     // Handle Click button
@@ -32,32 +43,26 @@ class HomeView extends Component {
     const inputsArr = this.readInputs();
 
     // Convert Form Inputs / XML format
-    var xmlInputs = [];
-    inputsArr.forEach(function(i) {
-        if (!i.value) {
-          xmlInputs.push({ [i.name] : i.name })
-        }else {
-          xmlInputs.push({ [i.name] : i.value })
-        }
-    })
+    const xmlInputs = this.covertToXML(inputsArr);
 
 
    // Create XMLHttpRequest
    var http = new XMLHttpRequest();
    var url = "/api/getMedicationsInfo";
    // Open the XHR request.
-   http.open("POST", url, false);
+   http.open("POST", url, true);
 
    // Prepare the search query
    const QuerySearchXML = xml({inputs: xmlInputs}, { declaration: true });
 
    // XHR Response Handling
-   try{
        http.setRequestHeader('Content-Type', 'text/xml'); // Set headers
        http.send(QuerySearchXML); // Send the XML Request.
 
      // XHR Response Handling
+       http.onload = function() {
        if(http.readyState === 4 && http.status === 200) {
+         console.log(http.responseXML);
          var code = http.responseXML.getElementsByTagName("code");
          var  {results} = x2js.xml2js(http.response);
          if (parseInt(code[0].childNodes[0].nodeValue) === 1) {
@@ -66,19 +71,15 @@ class HomeView extends Component {
                   hasMedications: true,
                   medications: results.medications.med
                 })
-         }else if (parseInt(code[0].childNodes[0].nodeValue) === 2){
+         }else{
            this.setState({
                   fetchIsDone: true,
                   hasMedications: false
                 })
         }
      }
-   }
-   catch{
-     alert("Request failed");
-   }
+   }.bind(this)
 }
-
   render(){
     return(
       <div className = 'Home'>
