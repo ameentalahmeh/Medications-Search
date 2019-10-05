@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import SearchBar from '../../components/SearchBar';
-import MedicationsView from '../MedicationsView';
+import Table from '../../components/Table';
 import "./Home.css";
 
 var xml = require('xml');
@@ -11,11 +11,11 @@ var x2js = new X2JS();
 class HomeView extends Component {
   constructor(){
     super();
-    this.handlingGetAction = this.handlingGetAction.bind(this)
     this.state = {
 
     };
   }
+
   readInputs  = () => {
     var drugCode = document.getElementById("drugCode");
     var diseaseCode = document.getElementById("diseaseCode");
@@ -58,25 +58,43 @@ class HomeView extends Component {
    const QuerySearchXML = xml({inputs: xmlInputs}, { declaration: true });
 
    // XHR Response Handling
-       http.setRequestHeader('Content-Type', 'text/xml'); // Set headers
-       http.send(QuerySearchXML); // Send the XML Request.
+   http.setRequestHeader('Content-Type', 'text/xml'); // Set headers
+   http.send(QuerySearchXML); // Send the XML Request.
 
-     // XHR Response Handling
-       http.onreadystatechange = async function() {
-       if(http.readyState === 4 && http.status === 200) {
-         console.log(http.responseXML);
-         var code = await http.responseXML.getElementsByTagName("code");
-         var  {results} = x2js.xml2js(http.response);
-         if (parseInt(code[0].childNodes[0].nodeValue) === 1) {
-           this.setState({
-                  fetchIsDone: true,
-                  hasMedications: true,
-                  medications: results.medications.med
-                })
-              }
+   // XHR Response Handling
+   try {
+     http.onreadystatechange = function() {
+          if(http.readyState === 4) {
+            var  {results} = x2js.xml2js(http.responseText);
+            console.log(results);
+
+            if(parseInt(results.code) === 1 ){
+              var meds = results.medications.med;
+                if ( meds.length > 1000 ) {
+                      meds = meds.slice(1,1000)
+                }
+                this.setState({
+                      fetchIsDone: true,
+                      hasMedications: true,
+                      medications: meds
+                  })
+
             }
-   }.bind(this)
-}
+            else{
+              this.setState({
+                    fetchIsDone: true,
+                    hasMedications: false
+                 })}
+
+          }
+        }
+   .bind(this)
+   }
+   catch {
+         alert('Request Failed!')
+       }
+  }
+
   render(){
     return(
       <div className = 'Home'>
@@ -88,14 +106,14 @@ class HomeView extends Component {
            <h1> Loading ... </h1>
            :
             <div className ="MedicationsViewSection">
-               <h2 className = "ShowResultsTitle"> The retrieved drugs and medications are: </h2>
+               <h2 className = "ShowResultsTitle"> The most retrieved drugs and medications are: </h2>
                {
-                 this.state.hasMedications ?
-                 <MedicationsView medications = {this.state.medications}/>
-               :
+                 !this.state.hasMedications ?
                  <Empty />
+                 :
+                 <Table medications = {this.state.medications}/>
                }
-           </div>
+            </div>
          :
          null
        }
