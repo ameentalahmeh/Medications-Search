@@ -11,7 +11,9 @@ var x2js = new X2JS();
 class HomeView extends Component {
   constructor(){
     super();
+    this.handlingGetAction = this.handlingGetAction.bind(this)
     this.state = {
+
     };
   }
   readInputs  = () => {
@@ -60,10 +62,10 @@ class HomeView extends Component {
        http.send(QuerySearchXML); // Send the XML Request.
 
      // XHR Response Handling
-       http.onreadystatechange = function() {
+       http.onreadystatechange = async function() {
        if(http.readyState === 4 && http.status === 200) {
          console.log(http.responseXML);
-         var code = http.responseXML.getElementsByTagName("code");
+         var code = await http.responseXML.getElementsByTagName("code");
          var  {results} = x2js.xml2js(http.response);
          if (parseInt(code[0].childNodes[0].nodeValue) === 1) {
            this.setState({
@@ -71,13 +73,8 @@ class HomeView extends Component {
                   hasMedications: true,
                   medications: results.medications.med
                 })
-         }else{
-           this.setState({
-                  fetchIsDone: true,
-                  hasMedications: false
-                })
-        }
-     }
+              }
+            }
    }.bind(this)
 }
   render(){
