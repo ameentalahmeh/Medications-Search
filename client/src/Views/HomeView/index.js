@@ -62,11 +62,9 @@ class HomeView extends Component {
    http.send(QuerySearchXML); // Send the XML Request.
 
    // XHR Response Handling
-   try {
      http.onreadystatechange = function() {
           if(http.readyState === 4) {
             var  {results} = x2js.xml2js(http.responseText);
-            console.log(results);
 
             if(parseInt(results.code) === 1 ){
               var meds = results.medications.med;
@@ -90,10 +88,6 @@ class HomeView extends Component {
         }
    .bind(this)
    }
-   catch {
-         alert('Request Failed!')
-       }
-  }
 
   render(){
     return(
