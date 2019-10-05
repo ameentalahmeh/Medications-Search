@@ -16,6 +16,6 @@ select
     CAST((RANDOM() * (899) + 100) as INT),
     CAST((RANDOM() * (899) + 100) as INT),
     floor(random() * 2 + 1)::int
-from generate_series(1, 100) s(i);
+from generate_series(1, 100000) s(i);
 
 COMMIT;

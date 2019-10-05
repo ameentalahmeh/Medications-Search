@@ -60,7 +60,7 @@ class HomeView extends Component {
        http.send(QuerySearchXML); // Send the XML Request.
 
      // XHR Response Handling
-       http.onload = function() {
+       http.onreadystatechange = function() {
        if(http.readyState === 4 && http.status === 200) {
          console.log(http.responseXML);
          var code = http.responseXML.getElementsByTagName("code");
