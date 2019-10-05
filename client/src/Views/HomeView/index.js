@@ -16,7 +16,7 @@ class HomeView extends Component {
     };
   }
 
-  readInputs  = () => {
+  readInputsTags  = () => {
     var drugCode = document.getElementById("drugCode");
     var diseaseCode = document.getElementById("diseaseCode");
     var type = document.getElementById("type");
@@ -24,9 +24,9 @@ class HomeView extends Component {
     return inputsArr;
   }
 
-  covertToXML = (Inputs) => {
+  readInputsValues = (SearchParams) => {
     var xmlInputs = [];
-    Inputs.forEach(function(i) {
+    SearchParams.forEach(function(i) {
         if (!i.value) {
           xmlInputs.push({ [i.name] : i.name })
         }else {
@@ -41,11 +41,11 @@ class HomeView extends Component {
     // Handle Click button
     this.setState({isAction:true, fetchIsDone: false, hasMedications: false });
 
-    // read Inputs before fetching.
-    const inputsArr = this.readInputs();
+    // read Inputs Tags
+    const inputsArr = this.readInputsTags();
 
-    // Convert Form Inputs / XML format
-    const xmlInputs = this.covertToXML(inputsArr);
+    // Extract Inputs values.
+    const xmlInputs = this.readInputsValues(inputsArr);
 
 
    // Create XMLHttpRequest
@@ -54,17 +54,19 @@ class HomeView extends Component {
    // Open the XHR request.
    http.open("POST", url, true);
 
-   // Prepare the search query
-   const QuerySearchXML = xml({inputs: xmlInputs}, { declaration: true });
+   // Format the searchQuery as XML.
+   const searchQueryXML = xml({inputs: xmlInputs}, { declaration: true });
 
    // XHR Response Handling
    http.setRequestHeader('Content-Type', 'text/xml'); // Set headers
-   http.send(QuerySearchXML); // Send the XML Request.
+   http.send(searchQueryXML); // Send the XML Request.
 
-   // XHR Response Handling
-     http.onreadystatechange = function() {
-          if(http.readyState === 4) {
+   // XHR Response Listening (Async)
+   http.onreadystatechange = function() {
+       if(http.readyState === 4) {
+            // Convert XML Response to JS Objects.
             var  {results} = x2js.xml2js(http.responseText);
+            // Display Results.
             if(parseInt(results.code) === 1 ){
               var meds = results.medications.med;
               meds = meds.length > 1000 ? meds = meds.slice(0,1000) : meds;
@@ -79,12 +81,12 @@ class HomeView extends Component {
                     fetchIsDone: true,
                     hasMedications: false
                  })}
-
           }
         }
    .bind(this)
    }
 
+  // Rendering ...
   render(){
     return(
       <div className = 'Home'>
