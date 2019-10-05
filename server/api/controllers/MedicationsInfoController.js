@@ -9,18 +9,19 @@ const MedicationsController = (req, res) => {
 
   var body = '';
   req.on('data', (chunk) => {
-    body += chunk;
+     body +=chunk;
   });
 
   req.on('end', () => {
      const InputsAsObject = x2js.xml2js(body).inputs;
      const legalURLKeys = [ 'drugCode', 'diseaseCode', 'type' ];
      const LegalURLflag = Object.keys(InputsAsObject).map((i,index) => i === legalURLKeys[index]);
-     const {drugCode, diseaseCode, type} = InputsAsObject;
-      console.log(type > 2)
+     var  {drugCode, diseaseCode, type} = InputsAsObject;
+     type =  type == 'type'? type : parseInt(type);
+
      if (type > 2 || type < 1 || Object.keys(InputsAsObject).length !== legalURLKeys.length || LegalURLflag.includes(false) ){
-       ErrorsController.serverError(req,res);
-     }
+         ErrorsController.serverError(req,res);
+       }
      else {
        getMedicationsInfo(drugCode, diseaseCode, type, (err, medications) => {
            if (err) {
