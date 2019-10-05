@@ -2,8 +2,10 @@ import React from "react";
 import "./Table.css";
 
 function Table(props) {
-    const Medications = props.medications[0];
-    const MedicationsKeys = Object.keys(Medications);
+    const Medications = props.medications.length > 1 ? props.medications : [props.medications];
+    const FirstMed = Medications[0];
+    const MedicationsKeys = Object.keys(FirstMed);
+    console.log(MedicationsKeys);
     return(
       <table>
       <thead>
@@ -25,7 +27,7 @@ function Table(props) {
       </thead>
       <tbody>
       {
-        props.medications.map((medication,index) => {
+        Medications.map((medication,index) => {
           const {id, description, drugcode, diseasecode, type}  = medication;
           return(
             <tr key = {index}>

@@ -65,18 +65,14 @@ class HomeView extends Component {
      http.onreadystatechange = function() {
           if(http.readyState === 4) {
             var  {results} = x2js.xml2js(http.responseText);
-
             if(parseInt(results.code) === 1 ){
               var meds = results.medications.med;
-                if ( meds.length > 1000 ) {
-                      meds = meds.slice(1,1000)
-                }
-                this.setState({
+              meds = meds.length > 1000 ? meds = meds.slice(0,1000) : meds;
+              this.setState({
                       fetchIsDone: true,
                       hasMedications: true,
                       medications: meds
                   })
-
             }
             else{
               this.setState({
