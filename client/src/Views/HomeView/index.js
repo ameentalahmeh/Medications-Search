@@ -61,7 +61,7 @@ class HomeView extends Component {
    http.setRequestHeader('Content-Type', 'text/xml'); // Set headers
    http.send(QuerySearchXML); // Send the XML Request.
 
-   // XHR Response Handling
+   // XHR Response Listening Method
      http.onreadystatechange = function() {
           if(http.readyState === 4) {
             var  {results} = x2js.xml2js(http.responseText);
