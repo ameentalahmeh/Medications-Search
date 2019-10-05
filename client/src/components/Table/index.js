@@ -5,7 +5,6 @@ function Table(props) {
     const Medications = props.medications.length > 1 ? props.medications : [props.medications];
     const FirstMed = Medications[0];
     const MedicationsKeys = Object.keys(FirstMed);
-    console.log(MedicationsKeys);
     return(
       <table>
       <thead>
